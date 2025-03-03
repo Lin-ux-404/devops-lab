@@ -1,11 +1,10 @@
-# from connexion.apps.flask_app import FlaskJSONEncoder
-from json import JSONEncoder
+from connexion.apps.flask_app import FlaskJSONEncoder
 import six
 
 from swagger_server.models.base_model_ import Model
 
 
-class JSONEncoder(JSONEncoder):
+class JSONEncoder(FlaskJSONEncoder):
     include_nulls = False
 
     def default(self, o):
@@ -18,4 +17,4 @@ class JSONEncoder(JSONEncoder):
                 attr = o.attribute_map[attr]
                 dikt[attr] = value
             return dikt
-        return JSONEncoder.default(self, o)
+        return FlaskJSONEncoder.default(self, o)

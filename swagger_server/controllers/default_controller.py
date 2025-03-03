@@ -1,6 +1,7 @@
 import connexion
 import six
 
+from swagger_server.models.inline_response200 import InlineResponse200  # noqa: E501
 from swagger_server.models.student import Student  # noqa: E501
 from swagger_server import util
 
@@ -15,21 +16,20 @@ def add_student(body=None):  # noqa: E501
 
     :rtype: str
     """
-    req = connexion.request
-    if req.content_type == "application/json":
-        body = Student.from_dict(connexion.request.json())  # noqa: E501
+    if connexion.request.is_json:
+        body = Student.from_dict(connexion.request.get_json())  # noqa: E501
     return 'do some magic!'
 
 
 def delete_student(student_id):  # noqa: E501
-    """gets student
+    """deletes a student
 
     delete a single student  # noqa: E501
 
     :param student_id: the uid
-    :type student_id: 
+    :type student_id: float
 
-    :rtype: object
+    :rtype: InlineResponse200
     """
     return 'do some magic!'
 
